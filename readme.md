@@ -16,6 +16,46 @@ The `setZeroes` function takes a matrix as input and performs the following step
 3. Uses the marks to set zeros in the corresponding rows and columns.
 4. Sets the first row and/or the first column to zero if they originally contained zeros.
 
+## Implementation
+The implementation in Javascript is as follows:
+```javascript
+function setZeroes(matrix) {
+    const m = matrix.length;
+    const n = matrix[0].length;
+
+    let firstRowHasZero = !matrix[0].every(val => val !== 0);
+    let firstColHasZero = !matrix.every(row => row[0] !== 0);
+
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            if (matrix[i][j] === 0) {
+                matrix[i][0] = matrix[0][j] = 0;
+            }
+        }
+    }
+
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+   
+    if (firstRowHasZero) {
+        matrix[0].fill(0);
+    }
+    if (firstColHasZero) {
+        for (let i = 0; i < m; i++) {
+            matrix[i][0] = 0;
+        }
+    }
+}
+```
+
+
+
 ## Usage
 
 ```javascript
@@ -30,8 +70,7 @@ setZeroes(matrix);
 
 console.log("Modified matrix:");
 matrix.forEach(row => console.log(row));
-
-
+```
 
 ## Complexity
 
